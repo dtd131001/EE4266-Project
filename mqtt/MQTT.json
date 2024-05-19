@@ -1,0 +1,576 @@
+[
+    {
+        "id": "8e4c9ae76c68cb93",
+        "type": "tab",
+        "label": "MQTT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2fa79fc6680e27d0",
+        "type": "mqtt in",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "topic": "indoor/temperature",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "f36456acbd195a75",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "f42095aa823bccbf"
+            ]
+        ]
+    },
+    {
+        "id": "ecdc49e750309e08",
+        "type": "mqtt in",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "topic": "indoor/humidity",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "f36456acbd195a75",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 340,
+        "wires": [
+            [
+                "f42095aa823bccbf"
+            ]
+        ]
+    },
+    {
+        "id": "f42095aa823bccbf",
+        "type": "join",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": true,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 450,
+        "y": 300,
+        "wires": [
+            [
+                "af26de603bc2c0f0",
+                "a729db36c5c1169a",
+                "265fb188f8d1e707"
+            ]
+        ]
+    },
+    {
+        "id": "7d0bd6d3692794cb",
+        "type": "http request",
+        "z": "8e4c9ae76c68cb93",
+        "name": "HTTP POST",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://e4fd-202-191-58-174.ngrok-free.app/api/v1/2yt7xY0jzAnls51ZNbTl/telemetry/",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 890,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "af26de603bc2c0f0",
+        "type": "debug",
+        "z": "8e4c9ae76c68cb93",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a729db36c5c1169a",
+        "type": "is online",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "url": "google.com",
+        "action": "1",
+        "x": 600,
+        "y": 500,
+        "wires": [
+            [
+                "08fc07cdcb96ecab",
+                "993e66d92e8dbf0e",
+                "7d0bd6d3692794cb"
+            ]
+        ]
+    },
+    {
+        "id": "08fc07cdcb96ecab",
+        "type": "debug",
+        "z": "8e4c9ae76c68cb93",
+        "name": "debug 15",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "265fb188f8d1e707",
+        "type": "is online",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "url": "google.com",
+        "action": "2",
+        "x": 620,
+        "y": 180,
+        "wires": [
+            [
+                "6dda0bfe72155931"
+            ]
+        ]
+    },
+    {
+        "id": "6dda0bfe72155931",
+        "type": "change",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload.indoor/humidity",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 200,
+        "wires": [
+            [
+                "9646adf9d3ba8fa0",
+                "7b3e048aeb10f7fc"
+            ]
+        ]
+    },
+    {
+        "id": "9646adf9d3ba8fa0",
+        "type": "debug",
+        "z": "8e4c9ae76c68cb93",
+        "name": "debug 16",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "7b3e048aeb10f7fc",
+        "type": "switch",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "property": "payload.indoor/temperature",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "30",
+                "vt": "str"
+            },
+            {
+                "t": "lt",
+                "v": "29.9",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1110,
+        "y": 100,
+        "wires": [
+            [
+                "1890c2b3e2a0fdcf"
+            ],
+            [
+                "7bc7ef30eeee810c"
+            ]
+        ]
+    },
+    {
+        "id": "6ee28a174a660202",
+        "type": "debug",
+        "z": "8e4c9ae76c68cb93",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1520,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "e8fdc39204ac9675",
+        "type": "debug",
+        "z": "8e4c9ae76c68cb93",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1520,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1890c2b3e2a0fdcf",
+        "type": "change",
+        "z": "8e4c9ae76c68cb93",
+        "name": "Set to 0",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1280,
+        "y": 60,
+        "wires": [
+            [
+                "6ee28a174a660202",
+                "484c687039e53bec"
+            ]
+        ]
+    },
+    {
+        "id": "7bc7ef30eeee810c",
+        "type": "change",
+        "z": "8e4c9ae76c68cb93",
+        "name": "Set to 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1260,
+        "y": 260,
+        "wires": [
+            [
+                "e8fdc39204ac9675",
+                "1173a8e721645be6"
+            ]
+        ]
+    },
+    {
+        "id": "484c687039e53bec",
+        "type": "mqtt out",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "topic": "esp32/digital/2",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "f36456acbd195a75",
+        "x": 1540,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "1173a8e721645be6",
+        "type": "mqtt out",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "topic": "esp32/digital/2",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "f36456acbd195a75",
+        "x": 1540,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "340db68776a09d10",
+        "type": "http request",
+        "z": "8e4c9ae76c68cb93",
+        "name": "HTTP GET",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://e4fd-202-191-58-174.ngrok-free.app/api/v1/2yt7xY0jzAnls51ZNbTl/rpc",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 970,
+        "y": 680,
+        "wires": [
+            [
+                "874c4cf7a708a43c",
+                "bb042b55e2465393"
+            ]
+        ]
+    },
+    {
+        "id": "874c4cf7a708a43c",
+        "type": "debug",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "bb042b55e2465393",
+        "type": "json",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1190,
+        "y": 680,
+        "wires": [
+            [
+                "0419b0cdb90f5a3f",
+                "c834536d495112ce"
+            ]
+        ]
+    },
+    {
+        "id": "0419b0cdb90f5a3f",
+        "type": "debug",
+        "z": "8e4c9ae76c68cb93",
+        "name": "debug 19",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1420,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "683179336fcca318",
+        "type": "debug",
+        "z": "8e4c9ae76c68cb93",
+        "name": "debug 20",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1560,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "c834536d495112ce",
+        "type": "bool",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "outputs": 1,
+        "inputField": "payload.params",
+        "outputField": "payload",
+        "outputFormat": "int",
+        "handleNull": "null",
+        "invert": false,
+        "strict": false,
+        "x": 1370,
+        "y": 680,
+        "wires": [
+            [
+                "683179336fcca318",
+                "c4b7602a7d96c7c5"
+            ]
+        ]
+    },
+    {
+        "id": "c4b7602a7d96c7c5",
+        "type": "mqtt out",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "topic": "esp32/digital/2",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "f36456acbd195a75",
+        "x": 1560,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "993e66d92e8dbf0e",
+        "type": "change",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 680,
+        "wires": [
+            [
+                "4870db0ea79fccb9"
+            ]
+        ]
+    },
+    {
+        "id": "4870db0ea79fccb9",
+        "type": "trigger",
+        "z": "8e4c9ae76c68cb93",
+        "name": "",
+        "op1": "1",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "1",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 800,
+        "y": 680,
+        "wires": [
+            [
+                "340db68776a09d10"
+            ]
+        ]
+    },
+    {
+        "id": "f36456acbd195a75",
+        "type": "mqtt-broker",
+        "name": "localhost",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

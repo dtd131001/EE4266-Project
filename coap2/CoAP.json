@@ -1,0 +1,271 @@
+[
+    {
+        "id": "84fc34a35c2b8c72",
+        "type": "tab",
+        "label": "CoAP",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8686fa420bc65068",
+        "type": "udp in",
+        "z": "84fc34a35c2b8c72",
+        "name": "coap",
+        "iface": "",
+        "port": "5683",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "buffer",
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "a6dae6af26c2359c"
+            ]
+        ]
+    },
+    {
+        "id": "a6dae6af26c2359c",
+        "type": "function",
+        "z": "84fc34a35c2b8c72",
+        "name": "function 2",
+        "func": "if (msg.payload) {\n    var data = msg.payload; // Chuyển payload thành buffer\n    var filtered = [data[25], data[26], data[27], data[28], data[29]]; // Lấy 5 ký tự cuối\n    msg.payload = String.fromCharCode.apply(null, filtered);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 160,
+        "wires": [
+            [
+                "df65296acd47fb38"
+            ]
+        ]
+    },
+    {
+        "id": "df65296acd47fb38",
+        "type": "change",
+        "z": "84fc34a35c2b8c72",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.temp",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 160,
+        "wires": [
+            [
+                "8f4cb2e4a1dc7868",
+                "37ed9e980516130e"
+            ]
+        ]
+    },
+    {
+        "id": "8f4cb2e4a1dc7868",
+        "type": "debug",
+        "z": "84fc34a35c2b8c72",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "37ed9e980516130e",
+        "type": "http request",
+        "z": "84fc34a35c2b8c72",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://e4fd-202-191-58-174.ngrok-free.app/api/v1/fGmDN3C4Xq1zveVlUxBH/telemetry",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 810,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4a14ed1c0fa27bd0",
+        "type": "http request",
+        "z": "84fc34a35c2b8c72",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://e4fd-202-191-58-174.ngrok-free.app/api/v1/fGmDN3C4Xq1zveVlUxBH/rpc",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 330,
+        "y": 460,
+        "wires": [
+            [
+                "d98d53d7d9ec2220",
+                "33efd99504debe7d"
+            ]
+        ]
+    },
+    {
+        "id": "d98d53d7d9ec2220",
+        "type": "debug",
+        "z": "84fc34a35c2b8c72",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "33efd99504debe7d",
+        "type": "json",
+        "z": "84fc34a35c2b8c72",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 550,
+        "y": 460,
+        "wires": [
+            [
+                "09e66aecf4e2a07c",
+                "3e2ec7a74d823822"
+            ]
+        ]
+    },
+    {
+        "id": "09e66aecf4e2a07c",
+        "type": "debug",
+        "z": "84fc34a35c2b8c72",
+        "name": "debug 22",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e1226b2472333bfa",
+        "type": "debug",
+        "z": "84fc34a35c2b8c72",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "3e2ec7a74d823822",
+        "type": "bool",
+        "z": "84fc34a35c2b8c72",
+        "name": "",
+        "outputs": 1,
+        "inputField": "payload.params",
+        "outputField": "payload",
+        "outputFormat": "int",
+        "handleNull": "null",
+        "invert": false,
+        "strict": false,
+        "x": 730,
+        "y": 460,
+        "wires": [
+            [
+                "e1226b2472333bfa",
+                "5e24f5821b9ac354"
+            ]
+        ]
+    },
+    {
+        "id": "48a77b5d7a04286a",
+        "type": "inject",
+        "z": "84fc34a35c2b8c72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 460,
+        "wires": [
+            [
+                "4a14ed1c0fa27bd0"
+            ]
+        ]
+    },
+    {
+        "id": "5e24f5821b9ac354",
+        "type": "udp out",
+        "z": "84fc34a35c2b8c72",
+        "name": "",
+        "addr": "192.168.1.208",
+        "iface": "",
+        "port": "5684",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 1050,
+        "y": 500,
+        "wires": []
+    }
+]
